@@ -1,12 +1,27 @@
 from chatbot import Chat, register_call
 import os
+
+
+import wikipedia
+
+
 import warnings
 import python_weather
 import asyncio
 
 warnings.filterwarnings("ignore")
 
+
 weather_string = None
+
+@register_call("wiki")
+def wiki(session=None, query='South Korea'):
+    try:
+        return wikipedia.summary(query)
+    except Exception:
+        pass
+    return "I don't know about "+query
+
 
 @register_call("do_you_know")
 def do_you_know(session=None, query=None):
