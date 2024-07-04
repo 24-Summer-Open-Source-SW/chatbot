@@ -10,6 +10,21 @@ from . import version
 from . import mapper
 from .constants import FIRST_QUESTIONS, TERMINATES, LANGUAGE_SUPPORT  # noqa: F401
 
+from deep_translator import GoogleTranslator
+
+
+translator_en_kr = GoogleTranslator(source='en', target='korean')
+translator_kr_en = GoogleTranslator(source='korean', target='en')
+
+
+def translate_en_kr(message):
+    return translator_en_kr.translate(message)
+
+
+def translate_kr_en(message):
+    return translator_kr_en.translate(message)
+
+
 try:
     from urllib import quote
 except ImportError:
@@ -989,7 +1004,8 @@ class Chat(object):
             except EOFError:
                 print(input_sentence)
             if input_sentence:
-                print(callback(input_sentence))
+                input_sentence=translate_kr_en(input_sentence)
+                print(translate_en_kr(callback(input_sentence)))
 
     # Hold a conversation with a chat bot
     def converse(self, first_question=None, terminate="quit", gui=None, session_id="general"):
