@@ -7,3 +7,7 @@
     {% response %}{% call do_you_know: %query %}{% endresponse %}
 {% endblock %}
 
+{% block %}
+    {% client %}(how is the weather in|weather in) (?P<query>.*){% endclient %}
+    {% response %}{% call weather: %query %}{% endresponse %}
+{% endblock %}
